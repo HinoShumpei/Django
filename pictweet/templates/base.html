@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pictweet</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header class="header">
+      <div class="header__bar row">
+        <h1 class="grid-6"><a href="/">PicTweet</a></h1>
+          {% if user.is_authenticated %}
+          <div class="user_nav grid-6">
+          <span>{{ user.username }}
+              <ul class="user__info">
+                  <li>
+                    <a href="{% url 'profile_user' user.pk %}">マイページ</a>
+                    <a href="/logout">ログアウト</a>
+                  </li>
+              </ul>
+          </span>
+          <a class="post" href="/tweet/new">投稿する</a>
+          </div>
+          {% else %}
+          <div class="grid-6">
+            <a class="post" href="/login">ログイン</a>
+            <a class="post" href="/signup">新規登録</a>
+          </div>
+          {% endif %}
+      </div>
+    </header>
+
+    {% block content %}{% endblock content %}
+
+    <footer>
+      <p>
+        Copyright PicTweet 2023.
+      </p>
+    </footer>
+
+</body>
+</html>

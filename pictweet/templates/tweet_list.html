@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="search-form">
+<form method="get" action="{% url 'tweet_list' %}">
+    <input type="text" name="q" placeholder="投稿を検索する" class="search-input">
+    <input type="submit" value="検索" class="search-btn">
+</form>
+</div>
+
+<div class="contents row">
+    {% include '_tweet_list.html' %}
+</div>
+{% endblock content %}

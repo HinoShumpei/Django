@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="contents row">
+            <div class="container">
+                <h3>編集する</h3>
+                {% include '_form.html' %}
+            </div>
+        </div>
+    </form>
+{% endblock content %}

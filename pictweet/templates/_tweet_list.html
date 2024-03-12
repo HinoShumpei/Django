@@ -1,0 +1,35 @@
+{% load static %}
+
+
+{% for tweet in tweets %}
+    <div class="content_post" style="{% if tweet.image %}background-image: url('{{ tweet.image.url }}');{% endif %}">
+
+        <div class="more">
+            <span><img src="{% static 'images/arrow_top.png' %}"></span>
+            <ul class="more_list">
+                {% if tweet.author == user %}
+                <li>
+                    <a href="{% url 'tweet_delete' tweet.pk %}">削除</a>
+                </li>
+                <li>
+                    <a href="{% url 'tweet_edit' tweet.pk %}">編集</a>
+                </li>
+                <li>
+                    <a href="{% url 'tweet_detail' tweet.pk %}">詳細</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'tweet_detail' tweet.pk %}">詳細</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <p>{{ tweet.text }}</p>
+        <span class="name"><a href="{% url 'profile_user' tweet.author.pk %}">
+        <span>投稿者</span>{{ tweet.author.username }}</a>
+        </span>
+    </div>
+{% empty %}
+    <p>ツイートが見つかりません。</p>
+{% endfor %}

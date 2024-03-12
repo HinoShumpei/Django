@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+
+    <div class="contents row">
+        <div class="container">
+            <h2>Log in</h2>
+            <div class="field">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                <ul class="errorlist">
+                    {% for error in form.username.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            <div class="field">
+                {{ form.password.label_tag  }}<a>(英数字含む8文字以上)</a>
+                {{ form.password }}
+                {% if form.password.errors %}
+                <ul class="errorlist">
+                    {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            <div class="actions">
+                <input type="submit" value="Log in">
+            </div>
+        </div>
+    </div>
+
+</form>
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<div class="contents row">
+    <div class="content_post" style="{% if tweet.image %}background-image: url('{{ tweet.image.url }}');{% endif %}">
+        {% if tweet.author == user %}
+        <div class="more">
+            <span><img src="{% static 'images/arrow_top.png' %}"></span>
+            <ul class="more_list">
+                <li>
+                    <a href="{% url 'tweet_edit' tweet.pk %}">編集</a>
+                </li>
+                <li>
+                    <a href="{% url 'tweet_delete' tweet.pk %}">削除</a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+        <p>{{ tweet.text }}</p>
+        <span class="name">{{ tweet.name }}
+        </span>
+    </div>
+    <div class="container">
+    {% if user.is_authenticated %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.comment }}
+            <input type="submit" value="SEND">
+        </form>
+    {% else %}
+      <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+    {% endif %}
+    <div class="comments">
+        <h4>＜コメント一覧＞</h4>
+        {% for comment in comments %}
+        <p>
+            <strong><a href="{% url 'profile_user' comment.author.pk %}">{{ comment.author }}</a></strong>
+            {{ comment.comment }}
+        </p>
+        {% empty %}
+            <p>コメントはまだありません。</p>
+        {% endfor %}
+    </div>
+    </div>
+</div>
+{% endblock content %}
